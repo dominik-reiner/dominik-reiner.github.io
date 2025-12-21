@@ -19,7 +19,7 @@ I’m using PaperMod in its "profile mode," which focuses on a minimalist introd
 Instead of setting up a full backend just for a contact form, I integrated **Formspark**. It provides a simple endpoint for form submissions, making it easy to receive messages while keeping the site static. You can find it on my [Contact](/contact) page.
 
 ### 3. Compliance
-Operating from Germany means compliance is key, so I’ve ensured the site includes a proper Imprint and Data Privacy statement to meet legal requirements.
+Operating from Germany means compliance is key, so I’ve ensured the site includes a proper [Imprint](/imprint) and [Data Privacy statement](/privacy) to meet legal requirements.
 
 ## What's Next?
 
