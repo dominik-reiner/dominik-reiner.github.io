@@ -1,0 +1,238 @@
+{{- define "main" }}
+
+<article class="post-single">
+    <header class="post-header">
+        {{ partial "breadcrumbs.html" . }}
+        <h1 class="post-title entry-hint-parent">
+            {{ .Title }}
+        </h1>
+        {{- if .Description }}
+        <div class="post-description">
+            {{ .Description }}
+        </div>
+        {{- end }}
+    </header>
+
+    <div class="post-content">
+        {{- .Content -}}
+
+        <div class="contact-form-container">
+            <div id="contact-success" style="display: none;">
+                <div class="success-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="color: #10b981; margin-bottom: 1rem;">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h3>Message Sent!</h3>
+                    <p>Thanks for reaching out. I'll get back to you as soon as possible.</p>
+                    <button onclick="resetForm()" class="submit-btn" style="margin-top: 1rem;">Send Another</button>
+                </div>
+            </div>
+            <form id="contact-form" action="https://submit-form.com/{{ .Site.Params.formspark_form_id }}" method="POST"
+                class="contact-form">
+                {{/* Honeypot field for spam protection */}}
+                <input type="checkbox" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="How can I help?">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Tell me more about your project..."
+                        required></textarea>
+                </div>
+                <p class="privacy-note">
+                    By submitting this form, you acknowledge that your data will be processed as described in our <a
+                        href="/privacy/">Privacy Policy</a>.
+                </p>
+                <button type="submit" id="submit-button" class="submit-btn">
+                    <span id="button-text">Send Message</span>
+                    <span id="button-loader" style="display: none;">Sending...</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</article>
+
+<script>
+    const form = document.getElementById("contact-form");
+    const successDiv = document.getElementById("contact-success");
+    const submitBtn = document.getElementById("submit-button");
+    const btnText = document.getElementById("button-text");
+    const btnLoader = document.getElementById("button-loader");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Disable button and show loader
+        submitBtn.disabled = true;
+        btnText.style.display = "none";
+        btnLoader.style.display = "inline";
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                form.style.display = "none";
+                successDiv.style.display = "block";
+            } else {
+                alert("Something went wrong. Please try again.");
+            }
+        } catch (error) {
+            alert("There was an error sending your message. Please try again.");
+        } finally {
+            submitBtn.disabled = false;
+            btnText.style.display = "inline";
+            btnLoader.style.display = "none";
+        }
+    });
+
+    function resetForm() {
+        form.reset();
+        form.style.display = "flex";
+        successDiv.style.display = "none";
+    }
+</script>
+
+<style>
+    .contact-form-container {
+        margin-top: 2rem;
+        padding: 2rem;
+        border-radius: 12px;
+        background: rgba(var(--primary-rgb), 0.03);
+        border: 1px solid rgba(var(--primary-rgb), 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(10px);
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--secondary);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--tertiary);
+        background: var(--code-bg);
+        color: var(--primary);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+    }
+
+    .submit-btn {
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        border: none;
+        background: var(--primary);
+        color: var(--theme);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        align-self: flex-start;
+    }
+
+    .submit-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .privacy-note {
+        font-size: 0.8rem;
+        color: var(--secondary);
+        margin-top: -0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .privacy-note a {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+
+    .success-message {
+        text-align: center;
+        padding: 2rem 0;
+        animation: fadeIn 0.5s ease;
+    }
+
+    .success-message h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Dark mode adjustments if needed */
+    .dark .contact-form-container {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    :root {
+        --primary-rgb: 0, 0, 0;
+    }
+
+    .dark {
+        --primary-rgb: 255, 255, 255;
+    }
+</style>
+
+{{- end }}

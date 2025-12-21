@@ -1,3 +1,81 @@
-baseURL: https://example.org/
-languageCode: en-us
-title: My New Hugo Site
+baseURL: "https://dominik-reiner.github.io/"
+languageCode: "en-us"
+title: "Dominik Reiner"
+theme: ["PaperMod"]
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+menu:
+  main:
+    - name: Search
+      url: search/
+      weight: 10
+    - name: Tags
+      url: tags/
+      weight: 10
+    - name: Blog
+      url: posts/
+      weight: 10
+    - name: Contact
+      url: contact/
+      weight: 20
+  footer:
+    - name: Impressum
+      url: imprint/
+      weight: 10
+    - name: Datenschutz
+      url: privacy/
+      weight: 20
+
+params:
+  # Your name for the author meta tag
+  author: "Dominik Reiner"
+  # Site description for SEO
+  description: "A personal website and blog about technology."
+  keywords: ["Blog", "Portfolio", "Tech", "Personal"]
+  ShowBreadCrumbs: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  
+  label:
+    text: " "
+    iconSVG: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="25"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' 
+
+  # --- Profile Mode settings ---
+  profileMode:
+    enabled: true
+    title: "Dominik Reiner"
+    subtitle: |
+      I’m an AI Engineer who enjoys the process of turning ideas into something tangible.
+
+      For me, the most interesting challenge isn't just the tech itself—it's the transition from a concept to something that actually functions and serves a purpose.
+
+      I’ve always been a builder, and I tend to live in the space where technical complexity meets practical use.
+
+      This site is a corner of the web where I share my personal projects and things I’m currently digging into.
+
+    imageUrl: "profile.png"
+    imageWidth: 200
+    imageHeight: 200
+    imageTitle: "Profile Picture"
+
+
+  # --- Social Icons ---
+  socialIcons:
+    - name: "github"
+      url: "https://github.com/dominik-reiner"
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/dominik-reiner-985689103/"
+
+  # --- Other settings ---
+  # Set default theme to auto, light, or dark
+  defaultTheme: "auto"
+  formspark_form_id: "PDPIBk97O"
+
+outputs:
+  home:
+    - HTML
+    - JSON # necessary for search
