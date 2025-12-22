@@ -49,4 +49,4 @@ The site is automatically built and deployed to GitHub Pages whenever changes ar
 
 ## ⚖️ License
 
-All content on this site is my own unless otherwise specified. Please feel free to explore the code!
+Copyright © 2025 Dominik Reiner. All rights reserved.

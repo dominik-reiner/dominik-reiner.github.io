@@ -33,3 +33,23 @@ Required for site-wide search functionality.
 - **Copyright:** Copyright (c) 2006, Ivan Sagalaev.
 
 Required for syntax highlighting in code blocks.
+
+---
+
+## Simple Icons
+- **License:** CC0 1.0 Universal
+- **Homepage:** [https://simpleicons.org/](https://simpleicons.org/)
+- **Copyright:** The Simple Icons Contributors
+
+Used for social media icons (e.g., Hugging Face, GitHub).
+
+---
+
+## Feather Icons
+- **License:** MIT License
+- **Homepage:** [https://feathericons.com/](https://feathericons.com/)
+- **Copyright:** Copyright (c) 2013-2017 Cole Bemis
+
+Used for user interface icons within the theme.
+
+
