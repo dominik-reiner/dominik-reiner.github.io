@@ -3,6 +3,7 @@ title: "Building this Website: A Journey with Hugo and PaperMod"
 date: 2025-12-21T20:00:00+01:00
 draft: false
 tags: ["hugo", "papermod", "web-development", "github-actions", "cicd", "gdpr"]
+mermaid: true
 summary: "A technical deep dive into how I built this personal site using Hugo, PaperMod, and a fully automated CI/CD pipeline on GitHub Actions."
 ---
 

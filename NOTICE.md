@@ -52,4 +52,13 @@ Used for social media icons (e.g., Hugging Face, GitHub).
 
 Used for user interface icons within the theme.
 
+---
+
+## Mermaid.js
+- **License:** MIT License
+- **Homepage:** [https://mermaid.js.org/](https://mermaid.js.org/)
+- **Copyright:** Copyright (c) 2014-2023 Knut Sveidqvist
+
+Required for rendering technical diagrams and charts from markdown.
+
 
