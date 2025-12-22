@@ -40,7 +40,7 @@ params:
   ShowBreadCrumbs: true
   ShowPostNavLinks: true
   ShowCodeCopyButtons: true
-  images: ["favicon.svg"]
+  images: ["web-app-manifest-512x512.png"]
   
   assets:
     favicon: "favicon.ico"
