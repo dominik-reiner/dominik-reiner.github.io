@@ -5,6 +5,9 @@
     img-src 'self' data:;
     connect-src 'self' https://submit-form.com;
     form-action 'self' https://submit-form.com;
+    frame-ancestors 'none';
     object-src 'none';
     base-uri 'self';
+    upgrade-insecure-requests;
 ">
+<meta name="referrer" content="strict-origin-when-cross-origin">
