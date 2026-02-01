@@ -49,4 +49,9 @@ The site is automatically built and deployed to GitHub Pages whenever changes ar
 
 ## ⚖️ License
 
-Copyright © 2025 Dominik Reiner. All rights reserved.
+This repository is dual-licensed:
+
+- **Content** (blog posts, documentation) is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
+- **Code** (source code, configuration, scripts, and code snippets within posts) is licensed under the [MIT License](LICENSE).
+
+**Note:** My name, likeness, logo, favicon, and personal photographs are excluded from these licenses. All rights for those assets are reserved.
