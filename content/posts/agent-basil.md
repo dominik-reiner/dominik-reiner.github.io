@@ -2,7 +2,7 @@
 title: "Can an AI Agent Take Care of Your Plant? Introducing Agent Basil"
 date: 2026-02-07T00:00:00+01:00
 draft: false
-mermaid: false
+mermaid: true
 tags: ["ai-agents", "langraph", "mcp", "gemini", "iot", "esp32", "automation"]
 summary: "I built Agent Basil, an AI agent that autonomously cares for a basil plant using vision, sensors, and physical actuators. Here's how it combines visual assessment with sensor data to make intelligent decisions."
 ---
@@ -33,6 +33,33 @@ Its core functionality is built on a few key components:
 ![Agent Basil Camera View](/images/agent-basil/agent_basil_closeup.jpg)
 
 The agent's operational cycle is a continuous loop of assessment and action. It starts with a visual input from an **ESP32-CAM**, which captures an image of the plant. This image is then sent to the LLM. I specifically instructed the agent to adopt a "casual, humorous, and maybe a little sassy" persona to make the logs more engaging. Based on the visual input, it generates a hypothesis—for example, *"The leaves are drooping, so the soil might be dry."*
+
+{{< mermaid >}}
+graph TD
+    subgraph "Agent Logic (LangGraph)"
+        Start((Start Turn)) --> Capture[Capture Image]
+        Capture --> Hypothesize[Generate Hypothesis]
+        Hypothesize --> Investigate{Need Data?}
+        Investigate -- Yes --> Tools[Call Sensors via FastMCP]
+        Tools --> Hypothesize
+        Investigate -- No --> Decide{Action Needed?}
+        Decide -- Yes: Water --> Irrigate[Trigger Pump via FastMCP]
+        Decide -- Yes: Help --> Human[Assign Task to Human]
+        Decide -- No --> End((End Turn))
+    end
+
+    subgraph "Hardware Layer (REST APIs)"
+        CAM[ESP32-CAM]
+        SENSORS[ESP8266 Sensors]
+        PUMP[ESP8266 Relay/Pump]
+    end
+
+    Capture -.->|GET /capture_base64| CAM
+    Tools -.->|GET /soil_moisture| SENSORS
+    Irrigate -.->|GET /irrigate| PUMP
+{{< /mermaid >}}
+
+The bridge between the AI's digital reasoning and the physical world is built on a simple but effective stack. The ESP32 and ESP8266 run **MicroPython REST APIs** that expose raw hardware functions (like taking a picture or toggling a relay) over the local network. I then used **FastMCP** to wrap these APIs, dynamically generating tools that the Gemini model can understand and call. This turns low-level hardware commands into high-level agent actions, allowing the LangGraph state machine to treat a physical water pump just like any other software function.
 
 To confirm this, the agent investigates further, using its tools to collect environmental data from sensors connected to an **ESP8266**, checking soil moisture, temperature, and humidity. Based on a confident diagnosis, the agent decides on the optimal action, whether that's activating the water pump or, if the problem is beyond its control (like a pest infestation), dispatching a specific task to me, its human caretaker. If no action is needed, the agent simply waits for its next turn.
 
