@@ -34,6 +34,8 @@ Its core functionality is built on a few key components:
 
 The agent's operational cycle is a continuous loop of assessment and action. It starts with a visual input from an **ESP32-CAM**, which captures an image of the plant. This image is then sent to the LLM. I specifically instructed the agent to adopt a "casual, humorous, and maybe a little sassy" persona to make the logs more engaging. Based on the visual input, it generates a hypothesis—for example, *"The leaves are drooping, so the soil might be dry."*
 
+To confirm this, the agent investigates further, using its tools to collect environmental data from sensors connected to an **ESP8266**, checking soil moisture, temperature, and humidity. Based on a confident diagnosis, the agent decides on the optimal action, whether that's activating the water pump or, if the problem is beyond its control (like a pest infestation), dispatching a specific task to me, its human caretaker. If no action is needed, the agent simply waits for its next turn.
+
 {{< mermaid >}}
 graph TD
     subgraph "Agent Logic (LangGraph)"
@@ -60,8 +62,6 @@ graph TD
 {{< /mermaid >}}
 
 The bridge between the AI's digital reasoning and the physical world is built on a simple but effective stack. The ESP32 and ESP8266 run **MicroPython REST APIs** that expose raw hardware functions (like taking a picture or toggling a relay) over the local network. I then used **FastMCP** to wrap these APIs, dynamically generating tools that the Gemini model can understand and call. This turns low-level hardware commands into high-level agent actions, allowing the LangGraph state machine to treat a physical water pump just like any other software function.
-
-To confirm this, the agent investigates further, using its tools to collect environmental data from sensors connected to an **ESP8266**, checking soil moisture, temperature, and humidity. Based on a confident diagnosis, the agent decides on the optimal action, whether that's activating the water pump or, if the problem is beyond its control (like a pest infestation), dispatching a specific task to me, its human caretaker. If no action is needed, the agent simply waits for its next turn.
 
 ## From "Desert" to "Small Victory": A Two-Week Case Study
 
