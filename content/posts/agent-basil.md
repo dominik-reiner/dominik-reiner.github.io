@@ -1,7 +1,7 @@
 ---
 title: "Can an AI Agent Take Care of Your Plant? Introducing Agent Basil"
 date: 2025-12-23T02:00:00+01:00
-draft: true
+draft: false
 tags: ["ai-agents", "langraph", "mcp", "gemini", "iot", "esp32", "automation"]
 summary: "I built Agent Basil, an AI agent that autonomously cares for a basil plant using vision, sensors, and physical actuators. Here's how it combines visual assessment with sensor data to make intelligent decisions."
 ---
